@@ -42,7 +42,7 @@ const userPermission = {
   },
 }
 
-const adminUsers = [
+export const adminUsers = [
   {
     id: 0,
     username: 'admin',

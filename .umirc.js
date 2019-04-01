@@ -1,8 +1,13 @@
 // https://umijs.org/config/
-import { resolve } from 'path'
+import { resolve, join } from 'path'
 import { i18n } from './src/utils/config'
+import slash from 'slash';
 
 export default {
+  // hash: false,
+  // history: 'hash', // browser, memory
+  outputPath: `/dist/renderer`, // default dist
+  publicPath: '/', // default /
   ignoreMomentLocale: true,
   targets: { ie: 9 },
   treeShaking: true,
@@ -21,9 +26,9 @@ export default {
           exclude: [
             /model\.(j|t)sx?$/,
             /service\.(j|t)sx?$/,
-            /models\//,
-            /components\//,
-            /services\//,
+            /models\.(j|t)sx?$/,
+            /components\.(j|t)sx?$/,
+            /services\.(j|t)sx?$/,
             /chart\/Container\.js$/,
             /chart\/ECharts\/.+Component\.js$/,
             /chart\/ECharts\/.+ComPonent\.js$/,
@@ -71,14 +76,16 @@ export default {
   // https://ant.design/docs/react/customize-theme
   theme: './config/theme.config.js',
   // Webpack Configuration
-  proxy: {
-    '/api/v1/weather': {
-      target: 'https://api.seniverse.com/',
-      changeOrigin: true,
-      pathRewrite: { '^/api/v1/weather': '/v3/weather' },
-    },
-  },
+  // proxy: {
+  //   '/api/v1/weather': {
+  //     target: 'https://api.seniverse.com/',
+  //     changeOrigin: true,
+  //     pathRewrite: { '^/api/v1/weather': '/v3/weather' },
+  //   },
+  // },
+  // target: 'electron-renderer',
   alias: {
+    // '@': resolve(__dirname, './src/'),
     api: resolve(__dirname, './src/services/'),
     components: resolve(__dirname, './src/components'),
     config: resolve(__dirname, './src/utils/config'),
@@ -99,5 +106,5 @@ export default {
       },
       'lodash',
     ],
-  ],
+  ]
 }

@@ -5,10 +5,10 @@ export const model = {
     updateState(state, { payload }) {
       return {
         ...state,
-        ...payload,
+        ...payload
       }
-    },
-  },
+    }
+  }
 }
 
 export const pageModel = modelExtend(model, {
@@ -19,21 +19,22 @@ export const pageModel = modelExtend(model, {
       showQuickJumper: true,
       current: 1,
       total: 0,
-      pageSize: 10,
-    },
+      pageSize: 10
+    }
   },
 
   reducers: {
     querySuccess(state, { payload }) {
+      console.log(payload)
       const { list, pagination } = payload
       return {
         ...state,
         list,
         pagination: {
           ...state.pagination,
-          ...pagination,
-        },
+          ...pagination
+        }
       }
-    },
-  },
+    }
+  }
 })

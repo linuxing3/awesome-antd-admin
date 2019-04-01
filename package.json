@@ -1,7 +1,9 @@
 {
-  "name": "antd-admin",
+  "name": "awesome-antd-admin",
   "version": "5.0.5",
   "private": true,
+  "main": "./dist/main/main.js",
+  "author": "linuxing3",
   "description": "An admin dashboard application demo built upon Ant Design and UmiJS",
   "dependencies": {
     "@lingui/react": "^2.7.2",
@@ -42,12 +44,16 @@
     "@lingui/babel-preset-react": "^2.7.2",
     "@lingui/cli": "^2.7.2",
     "@lingui/loader": "^2.7.2",
+    "awesome-typescript-loader": "^5.2.1",
     "babel-eslint": "^10.0.1",
     "babel-plugin-dev-expression": "^0.2.1",
     "babel-plugin-import": "^1.10.0",
     "babel-plugin-macros": "^2.5.0",
     "babel-plugin-module-resolver": "^3.2.0",
     "cross-env": "^5.2.0",
+    "electron": "^4.0.8",
+    "electron-builder": "^20.39.0",
+    "electron-packager": "^13.1.1",
     "eslint": "^5.15.0",
     "eslint-config-react-app": "^3.0.5",
     "eslint-plugin-flowtype": "^3.4.0",
@@ -63,12 +69,17 @@
     "stylelint": "^9.10.0",
     "stylelint-config-prettier": "^5.0.0",
     "stylelint-config-standard": "^18.2.0",
+    "ts-loader": "^5.3.3",
+    "tslint": "^5.14.0",
+    "typescript": "^3.4.1",
     "umi": "^2.5.0",
-    "umi-plugin-react": "^1.5.0"
+    "umi-plugin-react": "^1.5.0",
+    "webpack-cli": "^3.3.0"
   },
   "optionalDependencies": {
     "puppeteer": "^1.13.0"
   },
+  "config": {},
   "lint-staged": {
     "src/**/*.js": [
       "eslint --ext .js --fix",
@@ -99,17 +110,55 @@
     }
   },
   "scripts": {
-    "analyze": "cross-env ANALYZE=1 umi build",
+    "gen": "umi generate",
+    "start": "umi dev",
     "build": "umi build",
+    "dev": "yarn electron:dev",
+    "dist": "yarn electron:main && yarn electron:renderer && yarn electron:pack && yarn run electron-builder",
+    "electron:main": "cross-env NODE_ENV=production webpack --config ./config/build/webpack.main.prod.config.js",
+    "electron:main:dev": "cross-env NODE_ENV=development webpack --config ./config/build/webpack.main.config.js",
+    "electron:renderer": "umi build",
+    "electron:renderer:dev": "umi dev",
+    "electron:dev": "cross-env NODE_ENV=development electron ./dist/main/main.js",
+    "electron:pack": "electron-builder --dir",
+    "electron:debug": "electron --inspect=5858 -w ./dist/main/main.js",
+    "postinstall": "electron-builder install-app-deps",
+    "analyze": "cross-env ANALYZE=1 umi build",
     "lint:js": "eslint --ext .js src",
     "lint:style": "stylelint \"src/**/*.less\" --syntax less",
-    "start": "umi dev",
+    "lint:es": "eslint --ext .js src mock tests",
+    "lint-ts": "tslint -c tslint.json -p tsconfig.json",
     "test": "cross-env BABELRC=none umi test",
-    "prettier": "prettier --write 'src/**/*.{js,less}'",
+    "prettier": "prettier --write 'src/**/*.{js,ts,tsx,less}'",
     "precommit": "lint-staged",
     "add-locale": "lingui add-locale",
     "extract": "lingui extract",
     "trans": "lingui extract --clean && node ./scripts/translate.js",
     "doc": "docsify serve docs"
+  },
+  "build": {
+    "productName": "awesome-antd-admin",
+    "appId": "com.antd.vue",
+    "copyright": "linuxing3",
+    "win": {
+      "target": [
+        {
+          "target": "nsis",
+          "arch": [
+            "ia32"
+          ]
+        }
+      ]
+    },
+    "directories": {
+      "buildResources": "dist",
+      "output": "electron_build"
+    },
+    "files": [
+      "dist/",
+      "node_modules/",
+      "package.json"
+    ],
+    "asar": true
   }
 }

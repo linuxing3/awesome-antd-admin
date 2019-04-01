@@ -1,6 +1,6 @@
 module.exports = {
-  siteName: 'AntD Admin',
-  copyright: 'Ant Design Admin  © 2018 zuiidea',
+  siteName: 'Umi Electron Admin',
+  copyright: 'Umi Electron Admin  © 2019 linuxing3',
   logoPath: '/logo.svg',
   apiPrefix: '/api/v1',
   fixedHeader: true, // sticky primary layout header
@@ -10,8 +10,8 @@ module.exports = {
     {
       name: 'primary',
       include: [/.*/],
-      exlude: [/(\/(en|zh))*\/login/],
-    },
+      exlude: [/(\/(en|zh))*\/login/]
+    }
   ],
 
   /* I18n configuration, `languages` and `defaultLanguage` are required currently. */
@@ -21,19 +21,19 @@ module.exports = {
       {
         key: 'pt-br',
         title: 'Português',
-        flag: '/brazil.svg',
+        flag: '/brazil.svg'
       },
       {
         key: 'en',
         title: 'English',
-        flag: '/america.svg',
+        flag: '/america.svg'
       },
       {
         key: 'zh',
         title: '中文',
-        flag: '/china.svg',
-      },
+        flag: '/china.svg'
+      }
     ],
-    defaultLanguage: 'en',
-  },
+    defaultLanguage: 'en'
+  }
 }

@@ -13,18 +13,7 @@
 
 [![antd](https://img.shields.io/badge/antd-^3.10.0-blue.svg?style=flat-square)](https://github.com/ant-design/ant-design)
 [![umi](https://img.shields.io/badge/umi-^2.2.1-orange.svg?style=flat-square)](https://github.com/umijs/umi)
-[![GitHub issues](https://img.shields.io/github/issues/zuiidea/antd-admin.svg?style=flat-square)](https://github.com/zuiidea/antd-admin/issues)
-[![MIT](https://img.shields.io/dub/l/vibe-d.svg?style=flat-square)](http://opensource.org/licenses/MIT)
-![Travis (.org)](https://img.shields.io/travis/zuiidea/antd-admin.svg)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/zuiidea/antd-admin/pulls)
-[![Gitter](https://img.shields.io/gitter/room/antd-admin/antd-admin.svg)](https://gitter.im/antd-admin/antd-admin)
-
 </div>
-
-- 在线演示 - [https://antd-admin.zuiidea.com](https://antd-admin.zuiidea.com)
-- 使用文档 - [https://doc.antd-admin.zuiidea.com/#/zh-cn/](https://doc.antd-admin.zuiidea.com/#/zh-cn/)
-- 常见问题 - [https://doc.antd-admin.zuiidea.com/#/zh-cn/faq](https://doc.antd-admin.zuiidea.com/#/zh-cn/faq)
-- 更新日志 - [https://doc.antd-admin.zuiidea.com/#/zh-cn/change-log](https://doc.antd-admin.zuiidea.com/#/zh-cn/change-log)
 
 [English](./README.md) | 简体中文
 
@@ -41,11 +30,11 @@
 1. 下载项目代码。
 
 ```bash
-git clone https://github.com/zuiidea/antd-admin.git my-project
+git clone https://github.com/linuxing3/awesome-antd-admin.git my-project
 cd my-project
 ```
 
-2. 进入目录安装依赖，国内用户推荐使用 [cnpm](https://cnpmjs.org) 进行加速。
+2. 进入目录安装依赖
 
 ```bash
 yarn install
@@ -64,6 +53,26 @@ npm run start
 ```
 
 4. 启动完成后打开浏览器访问 [http://localhost:7000](http://localhost:7000)，如果需要更改启动端口，可在 `.env` 文件中配置。
+
+5. 使用electron
+
+`config/build`目录下，`webpack.main.config.js`生成`dist/main/main.js`
+
+`package.json`文件中，`main`字段指向`dist/main/main.js`
+
+`package.json`文件中，`electron:dev`字段调用`electron dist/main/main.js`
+
+```bash
+# generate main file
+yarn electron:main:dev
+# generate the render in dev server
+yarn electron:renderer
+# run electron with dist/main/main/js
+yarn electron:dev
+```
+
+6. 使用typescript
+  
 
 
 > 更多信息请参考 [使用文档](https://doc.antd-admin.zuiidea.com/#/zh-cn/)。
