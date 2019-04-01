@@ -110,7 +110,6 @@
     }
   },
   "scripts": {
-    "gen": "umi generate",
     "start": "umi dev",
     "build": "umi build",
     "dev": "yarn electron:dev",
@@ -120,9 +119,11 @@
     "electron:renderer": "umi build",
     "electron:renderer:dev": "umi dev",
     "electron:dev": "cross-env NODE_ENV=development electron ./dist/main/main.js",
-    "electron:pack": "electron-builder --dir",
+    "electron:pack": "cross-env NODE_ENV=production electron-builder --dir",
+    "electron:build": "cross-env NODE_ENV=production electron-builder",
     "electron:debug": "electron --inspect=5858 -w ./dist/main/main.js",
     "postinstall": "electron-builder install-app-deps",
+    "gen": "umi generate",
     "analyze": "cross-env ANALYZE=1 umi build",
     "lint:js": "eslint --ext .js src",
     "lint:style": "stylelint \"src/**/*.less\" --syntax less",

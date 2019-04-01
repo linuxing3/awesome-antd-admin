@@ -5,7 +5,10 @@ import { i18n } from './config'
 
 export classnames from 'classnames'
 export config from './config'
+
+// export requestLowdb as request from './request'
 export request from './request'
+
 export { Color } from './theme'
 
 export const { defaultLanguage } = i18n
@@ -247,7 +250,7 @@ export function setLocale(language) {
   if (getLocale() !== language) {
     umiRouter.push({
       pathname: `/${language}${deLangPrefix(window.location.pathname)}`,
-      search: window.location.search,
+      search: window.location.search
     })
   }
 }

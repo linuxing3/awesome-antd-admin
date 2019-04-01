@@ -76,24 +76,24 @@ export default {
   // https://ant.design/docs/react/customize-theme
   theme: './config/theme.config.js',
   // Webpack Configuration
-  // proxy: {
-  //   '/api/v1/weather': {
-  //     target: 'https://api.seniverse.com/',
-  //     changeOrigin: true,
-  //     pathRewrite: { '^/api/v1/weather': '/v3/weather' },
-  //   },
-  // },
+  proxy: {
+    '/api/v1/weather': {
+      target: 'https://api.seniverse.com/',
+      changeOrigin: true,
+      pathRewrite: { '^/api/v1/weather': '/v3/weather' },
+    },
+  },
   // target: 'electron-renderer',
   alias: {
     // '@': resolve(__dirname, './src/'),
-    api: resolve(__dirname, './src/services/'),
     components: resolve(__dirname, './src/components'),
-    config: resolve(__dirname, './src/utils/config'),
     models: resolve(__dirname, './src/models'),
-    routes: resolve(__dirname, './src/routes'),
+    api: resolve(__dirname, './src/services'),
     services: resolve(__dirname, './src/services'),
-    themes: resolve(__dirname, './src/themes'),
+    config: resolve(__dirname, './src/utils/config'),
     utils: resolve(__dirname, './src/utils'),
+    routes: resolve(__dirname, './src/routes'),
+    themes: resolve(__dirname, './src/themes'),
   },
   extraBabelPresets: ['@lingui/babel-preset-react'],
   extraBabelPlugins: [

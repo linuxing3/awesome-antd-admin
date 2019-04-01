@@ -2,7 +2,10 @@ language: node_js
 node_js:
   - node
 script:
-  - npm run build
+  - npm run electron:main
+  - npm run electron:renderer
+  - npm run electron:pack
+  - npm run electron-builder
 before_install:
   - |
     if [ "$TRAVIS_BRANCH" = "develop" ]; then

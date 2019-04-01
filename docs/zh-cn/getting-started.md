@@ -70,4 +70,4 @@ npm install
 npm run start
 ```
 
-3. 启动完成后打开浏览器访问 [http://localhost:7000](http://localhost:7000)，如果需要更改启动端口，可在 `.env` 文件中配置。
+3. 启动完成后打开浏览器访问 [http://localhost:8000](http://localhost:8000)，如果需要更改启动端口，可在 `.env` 文件中配置。

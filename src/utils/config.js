@@ -11,6 +11,13 @@ module.exports = {
       name: 'primary',
       include: [/.*/],
       exlude: [/(\/(en|zh))*\/login/]
+    },
+    // 1. 在`src/layouts/BaseLayout.js` 文件中
+    //    新增 `secondary` 布局组件。
+    // 2. 在`src/layouts/` 目录中新增`SecondaryLayout.js` 文件。
+    {
+      name: 'secondary',
+      include: [/(\/(en|zh))*\/secondary\/(.*)/]
     }
   ],
 
@@ -24,6 +31,11 @@ module.exports = {
         flag: '/brazil.svg'
       },
       {
+        key: 'ja',
+        title: '日本语',
+        flag: '/japanese.svg'
+      },
+      {
         key: 'en',
         title: 'English',
         flag: '/america.svg'
@@ -34,6 +46,6 @@ module.exports = {
         flag: '/china.svg'
       }
     ],
-    defaultLanguage: 'en'
+    defaultLanguage: 'zh'
   }
 }

@@ -10,11 +10,13 @@ import withRouter from 'umi/withRouter'
 
 import PublicLayout from './PublicLayout'
 import PrimaryLayout from './PrimaryLayout'
+import SecondaryLayout from './SecondaryLayout'
 import './BaseLayout.less'
 
 const LayoutMap = {
   primary: PrimaryLayout,
   public: PublicLayout,
+  secondary: SecondaryLayout
 }
 
 @withRouter
@@ -49,7 +51,7 @@ class BaseLayout extends PureComponent {
 }
 
 BaseLayout.propTypes = {
-  loading: PropTypes.object,
+  loading: PropTypes.object
 }
 
 export default BaseLayout
