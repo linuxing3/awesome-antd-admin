@@ -23,13 +23,13 @@ let usersListData = Mock.mock({
 
 let database = usersListData.data
 
-const EnumRoleType = {
+export const EnumRoleType = {
   ADMIN: 'admin',
   DEFAULT: 'guest',
   DEVELOPER: 'developer',
 }
 
-const userPermission = {
+export const userPermission = {
   DEFAULT: {
     visit: ['1', '2', '21', '7', '5', '51', '52', '53'],
     role: EnumRoleType.DEFAULT,
@@ -66,7 +66,7 @@ export const adminUsers = [
   },
 ]
 
-const queryArray = (array, key, keyAlias = 'key') => {
+export const queryArray = (array, key, keyAlias = 'key') => {
   if (!(array instanceof Array)) {
     return null
   }
@@ -85,7 +85,7 @@ const queryArray = (array, key, keyAlias = 'key') => {
   return null
 }
 
-const NOTFOUND = {
+export const NOTFOUND = {
   message: 'Not Found',
   documentation_url: 'http://localhost:8000/request',
 }

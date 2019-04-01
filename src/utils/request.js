@@ -3,7 +3,7 @@ import { cloneDeep, isEmpty } from 'lodash'
 import pathToRegexp from 'path-to-regexp'
 import { message } from 'antd'
 import { CANCEL_REQUEST_MESSAGE } from 'utils/constant'
-import db from 'utils/db.lowdb'
+import mockDb from 'utils/db.lowdb'
 import qs from 'qs'
 
 const { CancelToken } = axios
@@ -58,7 +58,8 @@ export default function request(options) {
   try {
     // TODO
     // let response = axios(options)
-    let response = db[url](options)
+    // here we use mockUser
+    let response = mockDb[url](options)
     const { statusText, status, data } = response
     let result = {}
     if (typeof data === 'object') {
