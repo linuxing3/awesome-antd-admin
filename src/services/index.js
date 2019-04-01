@@ -2,7 +2,6 @@ import request from 'utils/request'
 import { apiPrefix } from 'utils/config'
 
 import api from './api'
-
 /**
  * 参考`src/services/index.js`文件，对api配置进行遍历，
  * 每个属性都返回对应的封装后的request函数。

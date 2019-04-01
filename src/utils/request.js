@@ -57,6 +57,7 @@ export default function request(options) {
 
   try {
     // TODO
+    // let response = axios(options)
     let response = db[url](options)
     const { statusText, status, data } = response
     let result = {}
