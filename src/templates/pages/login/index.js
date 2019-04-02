@@ -18,6 +18,7 @@ class Login extends PureComponent {
     const { dispatch, form } = this.props
     const { validateFieldsAndScroll } = form
     validateFieldsAndScroll((errors, values) => {
+      console.log(values)
       if (errors) {
         return
       }

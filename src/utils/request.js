@@ -3,8 +3,11 @@ import { cloneDeep, isEmpty } from 'lodash'
 import pathToRegexp from 'path-to-regexp'
 import { message } from 'antd'
 import { CANCEL_REQUEST_MESSAGE } from 'utils/constant'
-import mockDb from 'utils/db.lowdb'
+
 import qs from 'qs'
+
+// using lowdb as backend api
+import db from 'utils/db.lowdb'
 
 const { CancelToken } = axios
 window.cancelRequest = new Map()
@@ -57,9 +60,13 @@ export default function request(options) {
 
   try {
     // TODO
-    // let response = axios(options)
-    // here we use mockUser
-    let response = mockDb[url](options)
+    // let response = axios.get(options)
+    // Lowdb Mock Api Server
+    console.log(options)
+    let methodWithUrl = options.method + ' ' + options.url
+    let response = db[methodWithUrl](options)
+    console.log(response)
+
     const { statusText, status, data } = response
     let result = {}
     if (typeof data === 'object') {
@@ -112,5 +119,29 @@ export default function request(options) {
 const requestOptions = {
   data: {},
   url: '',
-  method: 'PUT'
+  method: 'PUT',
+  params: {},
+  baseUrl: '',
+  auth: {
+    username: '',
+    password: ''
+  },
+  proxy: {
+    host: '',
+    port: 0,
+    auth: {
+      username: '',
+      password: ''
+    }
+  },
+  cancelToken: ''
+}
+
+const reponseSchema = {
+  data: {},
+  status: 200,
+  statusText: 'OK',
+  headers: {},
+  config: {},
+  request: {}
 }

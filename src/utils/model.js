@@ -26,13 +26,18 @@ export const pageModel = modelExtend(model, {
   reducers: {
     querySuccess(state, { payload }) {
       console.log(payload)
-      const { list, pagination } = payload
+      // NOTE
+      // To use the state in a namespaced module, must use [namespace.list]
+      // In other words, in the page/index.js file, use [namespace] as props
+      // instead of directly use [list] as props
+      // @connect({namespace})
+      // @connect(({ user }) => ({ user }))
       return {
         ...state,
-        list,
+        list: payload.list,
         pagination: {
           ...state.pagination,
-          ...pagination
+          ...payload.pagination
         }
       }
     }

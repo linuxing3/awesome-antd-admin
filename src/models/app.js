@@ -9,14 +9,14 @@ import { CANCEL_REQUEST_MESSAGE } from 'utils/constant'
 import api from 'api'
 import config from 'config'
 
-const { queryRouteList, logoutUser, queryUserInfo } = api
+const { queryRouteList, logoutUserLowdb, queryUserInfoLowdb } = api
 
 export default {
   namespace: 'app',
   state: {
     user: {},
     permissions: {
-      visit: [],
+      visit: []
     },
     routeList: [
       {
@@ -24,8 +24,8 @@ export default {
         icon: 'laptop',
         name: 'Dashboard',
         zhName: '仪表盘',
-        router: '/dashboard',
-      },
+        router: '/dashboard'
+      }
     ],
     locationPathname: '',
     locationQuery: {},
@@ -34,13 +34,13 @@ export default {
     notifications: [
       {
         title: 'New User is registered.',
-        date: new Date(Date.now() - 10000000),
+        date: new Date(Date.now() - 10000000)
       },
       {
         title: 'Application has been approved.',
-        date: new Date(Date.now() - 50000000),
-      },
-    ],
+        date: new Date(Date.now() - 50000000)
+      }
+    ]
   },
   subscriptions: {
     setupHistory({ dispatch, history }) {
@@ -49,8 +49,8 @@ export default {
           type: 'updateState',
           payload: {
             locationPathname: location.pathname,
-            locationQuery: location.query,
-          },
+            locationQuery: location.query
+          }
         })
       })
     },
@@ -70,12 +70,16 @@ export default {
 
     setup({ dispatch }) {
       dispatch({ type: 'query' })
-    },
+    }
   },
   effects: {
     *query({ payload }, { call, put, select }) {
-      const { success, user } = yield call(queryUserInfo, payload)
+      // FIXED no user got, must use axios response with data field
+      const { success, user } = yield call(queryUserInfoLowdb, payload)
       const { locationPathname } = yield select(_ => _.app)
+
+      console.log(user.username + ' Logged in')
+      console.log(user)
 
       if (success && user) {
         const { list } = yield call(queryRouteList)
@@ -93,36 +97,37 @@ export default {
               item.mpid
                 ? permissions.visit.includes(item.mpid) || item.mpid === '-1'
                 : true,
-              item.bpid ? permissions.visit.includes(item.bpid) : true,
+              item.bpid ? permissions.visit.includes(item.bpid) : true
             ]
             return cases.every(_ => _)
           })
         }
+        const newState = {
+          user,
+          permissions,
+          routeList
+        }
         yield put({
           type: 'updateState',
-          payload: {
-            user,
-            permissions,
-            routeList,
-          },
+          payload: newState
         })
-        if (pathMatchRegexp(['/','/login'], window.location.pathname)) {
+        if (pathMatchRegexp(['/', '/login'], window.location.pathname)) {
           router.push({
-            pathname: '/dashboard',
+            pathname: '/dashboard'
           })
         }
       } else if (queryLayout(config.layouts, locationPathname) !== 'public') {
         router.push({
           pathname: '/login',
           search: stringify({
-            from: locationPathname,
-          }),
+            from: locationPathname
+          })
         })
       }
     },
 
     *signOut({ payload }, { call, put }) {
-      const data = yield call(logoutUser)
+      const data = yield call(logoutUserLowdb)
       if (data.success) {
         yield put({
           type: 'updateState',
@@ -135,22 +140,22 @@ export default {
                 icon: 'laptop',
                 name: 'Dashboard',
                 zhName: '仪表盘',
-                router: '/dashboard',
-              },
-            ],
-          },
+                router: '/dashboard'
+              }
+            ]
+          }
         })
         yield put({ type: 'query' })
       } else {
         throw data
       }
-    },
+    }
   },
   reducers: {
     updateState(state, { payload }) {
       return {
         ...state,
-        ...payload,
+        ...payload
       }
     },
 
@@ -166,6 +171,6 @@ export default {
 
     allNotificationsRead(state) {
       state.notifications = []
-    },
-  },
+    }
+  }
 }

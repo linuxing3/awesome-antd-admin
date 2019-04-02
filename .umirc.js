@@ -83,7 +83,10 @@ export default {
       pathRewrite: { '^/api/v1/weather': '/v3/weather' },
     },
   },
-  // target: 'electron-renderer',
+  chainWebpack(config) {
+    config.target('web')
+    // config.merge({ target: 'electron-renderer'})
+  },
   alias: {
     // '@': resolve(__dirname, './src/'),
     components: resolve(__dirname, './src/components'),

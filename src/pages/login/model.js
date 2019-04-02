@@ -1,7 +1,7 @@
 import { router, pathMatchRegexp } from 'utils'
 import api from 'api'
 
-const { loginUser } = api
+const { loginUserLowdb } = api
 
 export default {
   namespace: 'login',
@@ -10,7 +10,8 @@ export default {
 
   effects: {
     *login({ payload }, { put, call, select }) {
-      const data = yield call(loginUser, payload)
+      // The response is { success: , data: }
+      const data = yield call(loginUserLowdb, payload)
       const { locationQuery } = yield select(_ => _.app)
       if (data.success) {
         const { from } = locationQuery
@@ -24,6 +25,6 @@ export default {
       } else {
         throw data
       }
-    },
-  },
+    }
+  }
 }

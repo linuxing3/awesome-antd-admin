@@ -1,16 +1,19 @@
 import modelExtend from 'dva-model-extend'
 import { pathMatchRegexp } from 'utils'
 import { pageModel } from 'utils/model'
+import api from 'api'
 
-import {
+const {
   queryUserListLowdb,
   updateUserLowdb,
   createUserLowdb,
   removeUserLowdb,
   removeUserListLowdb
-} from 'api'
+} = api
 
 export default modelExtend(pageModel, {
+  // NOTE:
+  // use [namespace] path to access the state
   namespace: 'user',
 
   state: {
@@ -35,16 +38,19 @@ export default modelExtend(pageModel, {
   effects: {
     *query({ payload = {} }, { call, put }) {
       console.log('Start querying users...')
-      const data = call(queryUserListLowdb, payload)
-      if (data.success) {
+      // use yield before
+      // The response is data instead of { success: , data: }
+      const response = yield call(queryUserListLowdb, payload)
+      console.log(response)
+      if (response) {
         yield put({
           type: 'querySuccess',
           payload: {
-            list: data,
+            list: response.list,
             pagination: {
               current: 1,
               pageSize: 10,
-              total: data.length
+              total: response.list.length
             }
           }
         })
@@ -52,7 +58,7 @@ export default modelExtend(pageModel, {
     },
 
     *delete({ payload }, { call, put, select }) {
-      const data = call(removeUserLowdb, { id: payload })
+      const data = yield call(removeUserLowdb, { id: payload })
       if (data.success) {
         yield put({
           type: 'updateState',
@@ -67,7 +73,7 @@ export default modelExtend(pageModel, {
 
     *multiDelete({ payload }, { call, put }) {
       // yield deleteUser here
-      const data = call(removeUserListLowdb, payload)
+      const data = yield call(removeUserListLowdb, payload)
       if (data.success) {
         yield put({ type: 'updateState', payload: { selectedRowKeys: data } })
       } else {
@@ -77,7 +83,7 @@ export default modelExtend(pageModel, {
 
     *create({ payload }, { call, put }) {
       // yield createUser here
-      const data = call(createUserLowdb, payload)
+      const data = yield call(createUserLowdb, payload)
       if (data.success) {
         yield put({ type: 'hideModal' })
       } else {

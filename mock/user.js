@@ -23,13 +23,13 @@ let usersListData = Mock.mock({
 
 let database = usersListData.data
 
-export const EnumRoleType = {
+const EnumRoleType = {
   ADMIN: 'admin',
   DEFAULT: 'guest',
   DEVELOPER: 'developer',
 }
 
-export const userPermission = {
+const userPermission = {
   DEFAULT: {
     visit: ['1', '2', '21', '7', '5', '51', '52', '53'],
     role: EnumRoleType.DEFAULT,
@@ -42,7 +42,7 @@ export const userPermission = {
   },
 }
 
-export const adminUsers = [
+const adminUsers = [
   {
     id: 0,
     username: 'admin',
@@ -66,7 +66,7 @@ export const adminUsers = [
   },
 ]
 
-export const queryArray = (array, key, keyAlias = 'key') => {
+const queryArray = (array, key, keyAlias = 'key') => {
   if (!(array instanceof Array)) {
     return null
   }
@@ -85,12 +85,15 @@ export const queryArray = (array, key, keyAlias = 'key') => {
   return null
 }
 
-export const NOTFOUND = {
+const NOTFOUND = {
   message: 'Not Found',
   documentation_url: 'http://localhost:8000/request',
 }
 
 module.exports = {
+  getUsers() {
+    return adminUsers
+  },
   [`POST ${ApiPrefix}/user/login`](req, res) {
     const { username, password } = req.body
     const user = adminUsers.filter(item => item.username === username)

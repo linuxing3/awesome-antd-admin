@@ -2,6 +2,7 @@ import React, { PureComponent } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'dva'
 import { Row, Col, Card } from 'antd'
+import { withI18n } from '@lingui/react'
 import { Color } from 'utils'
 import { Page, ScrollBar } from 'components'
 
@@ -11,12 +12,13 @@ const bodyStyle = {
     background: '#fff'
   }
 }
-
+@withI18n()
 @connect(({ user }) => ({ user }))
 class User extends PureComponent {
   render() {
-    console.log(this.props.user)
-    let { list } = this.props.user
+    console.log(this.props)
+    const { user } = this.props
+    const { list } = user
     return (
       <div>
         <Row gutter={24}>
@@ -24,6 +26,7 @@ class User extends PureComponent {
             {list.map(item => {
               return (
                 <Card
+                  key={item.username}
                   bordered={false}
                   bodyStyle={{
                     padding: '24px 36px 24px 0'
@@ -42,7 +45,10 @@ class User extends PureComponent {
 }
 
 User.propTypes = {
-  user: PropTypes.object
+  user: PropTypes.object,
+  location: PropTypes.object,
+  dispatch: PropTypes.func,
+  loading: PropTypes.object
 }
 
 export default User

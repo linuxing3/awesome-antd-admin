@@ -12,6 +12,11 @@ export default {
   removeUser: 'DELETE /user/:id',
   removeUserList: 'POST /users/delete',
   // lowdb
+  queryRouteListLowdb: '/routes',
+
+  queryUserInfoLowdb: '/user',
+  logoutUserLowdb: '/user/logout',
+  loginUserLowdb: 'POST /user/login',
   queryUserLowdb: '/user/:id',
   queryUserListLowdb: '/users',
   updateUserLowdb: 'Patch /user/:id',
